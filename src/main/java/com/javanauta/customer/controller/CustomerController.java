@@ -26,6 +26,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.saveCustomer(customerDTO));
     }
 
+
     @PostMapping("/login")
     public String login(@RequestBody CustomerDTO customerDTO){
         Authentication authentication = authenticationManager.authenticate(
