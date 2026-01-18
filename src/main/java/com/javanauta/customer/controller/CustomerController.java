@@ -49,4 +49,10 @@ public class CustomerController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping
+    public ResponseEntity<CustomerDTO> updCustomer(@RequestBody CustomerDTO dto,
+                                                   @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(customerService.updateDataCustomer(token, dto));
+    }
+
 }

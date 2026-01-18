@@ -96,5 +96,15 @@ public class CustomerConverter {
                 .build();
 
     }
+    public Customer updateCustomer(CustomerDTO customerDTO, Customer entity){
+        return Customer.builder()
+                .name(customerDTO.getName() != null ? customerDTO.getName() : entity.getName())
+                .id(entity.getId())
+                .password(customerDTO.getPassword() != null ? customerDTO.getPassword() : entity.getPassword())
+                .email(customerDTO.getEmail() != null ? customerDTO.getEmail() : entity.getEmail())
+                .addresses(entity.getAddresses())
+                .fones(entity.getFones())
+                .build();
+    }
 }
 
