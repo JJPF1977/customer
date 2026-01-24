@@ -11,7 +11,7 @@ import lombok.*;
 @Entity
 @Table(name = "fone")
 @Builder
-public class Fone {
+public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

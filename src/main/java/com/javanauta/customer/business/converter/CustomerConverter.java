@@ -2,10 +2,10 @@ package com.javanauta.customer.business.converter;
 
 import com.javanauta.customer.business.dto.AddressDTO;
 import com.javanauta.customer.business.dto.CustomerDTO;
-import com.javanauta.customer.business.dto.FoneDTO;
+import com.javanauta.customer.business.dto.PhoneDTO;
 import com.javanauta.customer.infrastructure.entity.Address;
 import com.javanauta.customer.infrastructure.entity.Customer;
-import com.javanauta.customer.infrastructure.entity.Fone;
+import com.javanauta.customer.infrastructure.entity.Phone;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class CustomerConverter {
                 .email(customerDTO.getEmail())
                 .password(customerDTO.getPassword())
                 .addresses(toAddressList(customerDTO.getAddresses()))
-                .fones(toFoneList(customerDTO.getFones()))
+                .phones(toFoneList(customerDTO.getFones()))
 
                 .build();
 
@@ -44,14 +44,14 @@ public class CustomerConverter {
 
                 .build();
     }
-    public List<Fone> toFoneList(List<FoneDTO> foneDTOS){
-        return foneDTOS.stream().map(this::toFone).toList();
+    public List<Phone> toFoneList(List<PhoneDTO> phoneDTOS){
+        return phoneDTOS.stream().map(this::toFone).toList();
 
     }
-    public Fone toFone(FoneDTO foneDTO){
-        return Fone.builder()
-                .number(foneDTO.getNumber())
-                .ddd(foneDTO.getDdd())
+    public Phone toFone(PhoneDTO phoneDTO){
+        return Phone.builder()
+                .number(phoneDTO.getNumber())
+                .ddd(phoneDTO.getDdd())
                 .build();
 
     }
@@ -61,7 +61,7 @@ public class CustomerConverter {
                 .email(customerDTO.getEmail())
                 .password(customerDTO.getPassword())
                 .addresses(toAddressListDTO(customerDTO.getAddresses()))
-                .fones(toFoneListDTO(customerDTO.getFones()))
+                .fones(toPhoneListDTO(customerDTO.getPhones()))
 
                 .build();
 
@@ -74,25 +74,27 @@ public class CustomerConverter {
         return addresses;
 
     }
-    public AddressDTO toAddressDTO(Address addressDTO){
+    public AddressDTO toAddressDTO(Address address){
         return AddressDTO.builder()
-                .street(addressDTO.getStreet())
-                .number(addressDTO.getNumber())
-                .city(addressDTO.getCity())
-                .complement((addressDTO.getComplement()))
-                .zipcode(addressDTO.getZipcode())
-                .state(addressDTO.getState())
+                .id(address.getId())
+                .street(address.getStreet())
+                .number(address.getNumber())
+                .city(address.getCity())
+                .complement((address.getComplement()))
+                .zipcode(address.getZipcode())
+                .state(address.getState())
 
                 .build();
     }
-    public List<FoneDTO> toFoneListDTO(List<Fone> foneDTOS){
-        return foneDTOS.stream().map(this::toFoneDTO).toList();
+    public List<PhoneDTO> toPhoneListDTO(List<Phone> phoneDTOS){
+        return phoneDTOS.stream().map(this::toPhoneDTO).toList();
 
     }
-    public FoneDTO toFoneDTO(Fone foneDTO){
-        return FoneDTO.builder()
-                .number(foneDTO.getNumber())
-                .ddd(foneDTO.getDdd())
+    public PhoneDTO toPhoneDTO(Phone phone){
+        return PhoneDTO.builder()
+                .id(phone.getId())
+                .number(phone.getNumber())
+                .ddd(phone.getDdd())
                 .build();
 
     }
@@ -103,7 +105,25 @@ public class CustomerConverter {
                 .password(customerDTO.getPassword() != null ? customerDTO.getPassword() : entity.getPassword())
                 .email(customerDTO.getEmail() != null ? customerDTO.getEmail() : entity.getEmail())
                 .addresses(entity.getAddresses())
-                .fones(entity.getFones())
+                .phones(entity.getPhones())
+                .build();
+    }
+    public Address updateAddress(AddressDTO dto, Address entity){
+        return Address.builder()
+                .id(entity.getId())
+                .street(dto.getStreet() != null ? dto.getStreet() : entity.getStreet())
+                .number(dto.getNumber() != null ? dto.getNumber() : entity.getNumber())
+                .city(dto.getCity() != null ? dto.getCity() : entity.getCity())
+                .zipcode(dto.getZipcode() != null ? dto.getZipcode() : entity.getZipcode())
+                .complement(dto.getComplement() != null ? dto.getComplement() : entity.getComplement())
+                .state(dto.getState() != null ? dto.getState() : entity.getState())
+                .build();
+    }
+    public Phone updatePhone(PhoneDTO dto, Phone entity){
+        return Phone.builder()
+                .id(entity.getId())
+                .ddd(dto.getDdd() != null ? dto.getDdd() : entity.getDdd())
+                .number(dto.getNumber() != null ? dto.getNumber() : entity.getNumber())
                 .build();
     }
 }

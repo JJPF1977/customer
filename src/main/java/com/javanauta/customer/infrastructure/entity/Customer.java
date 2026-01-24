@@ -32,7 +32,7 @@ public class Customer implements UserDetails {
     private List<Address> addresses;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private List<Fone> fones;
+    private List<Phone> phones;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

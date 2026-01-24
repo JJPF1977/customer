@@ -1,8 +1,9 @@
 package com.javanauta.customer.controller;
 
 import com.javanauta.customer.business.CustomerService;
+import com.javanauta.customer.business.dto.AddressDTO;
 import com.javanauta.customer.business.dto.CustomerDTO;
-import com.javanauta.customer.infrastructure.entity.Customer;
+import com.javanauta.customer.business.dto.PhoneDTO;
 import com.javanauta.customer.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class CustomerController {
 
 
     @GetMapping
-    public ResponseEntity<Customer> searchCustomerByEmail(@RequestParam("email") String email){
+    public ResponseEntity<CustomerDTO> searchCustomerByEmail(@RequestParam("email") String email){
         return ResponseEntity.ok(customerService.searchCustomerByEmail(email));
     }
 
@@ -53,6 +54,18 @@ public class CustomerController {
     public ResponseEntity<CustomerDTO> updCustomer(@RequestBody CustomerDTO dto,
                                                    @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(customerService.updateDataCustomer(token, dto));
+    }
+
+    @PutMapping("/address")
+    public ResponseEntity<AddressDTO> updateAddress(@RequestBody AddressDTO dto,
+                                                    @RequestParam("id") Long id){
+        return ResponseEntity.ok(customerService.updateAddress(id, dto));
+    }
+
+    @PutMapping("/phone")
+    public ResponseEntity<PhoneDTO> updatePhone(@RequestBody PhoneDTO dto,
+                                                    @RequestParam("id") Long id){
+        return ResponseEntity.ok(customerService.updatePhone(id, dto));
     }
 
 }
