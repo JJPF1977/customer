@@ -15,5 +15,5 @@ public class CustomerDTO {
     private String email;
     private String password;
     private List<AddressDTO> addresses;
-    private List<FoneDTO> fones;
+    private List<PhoneDTO> fones;
 }
