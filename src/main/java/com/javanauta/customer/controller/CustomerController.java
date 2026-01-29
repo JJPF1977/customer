@@ -68,4 +68,15 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.updatePhone(id, dto));
     }
 
+    @PostMapping("/address")
+    public ResponseEntity<AddressDTO> registerAddress(@RequestBody AddressDTO dto,
+                                                  @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(customerService.registerAddress(token, dto));
+    }
+    @PostMapping("/phone")
+    public ResponseEntity<PhoneDTO> registerPhone(@RequestBody PhoneDTO dto,
+                                                      @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(customerService.registerPhone(token, dto));
+    }
+
 }

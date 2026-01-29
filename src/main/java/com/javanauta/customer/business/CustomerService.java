@@ -73,7 +73,7 @@ public class CustomerService {
     public CustomerDTO updateDataCustomer(String token, CustomerDTO dto) {
 
         //Aqui buscamos o email do "customer" através do token (tirar a obrigatoriedade do email)
-        String email = jwtUtil.extractUsername(token.substring(7));
+        String email = jwtUtil.extractTokenEmail(token.substring(7));
 
         //Criptografia de "Password"
         dto.setPassword(dto.getPassword() != null ? passwordEncoder.encode(dto.getPassword()) : null);
@@ -107,5 +107,25 @@ public class CustomerService {
         Phone phone = customerConverter.updatePhone(dto, entity);
 
         return customerConverter.toPhoneDTO(phoneRepository.save(phone));
+    }
+
+    public AddressDTO registerAddress(String token, AddressDTO dto){
+        String email = jwtUtil.extractTokenEmail(token.substring(7));
+        Customer customer = customerRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Email not found " + email));
+
+        Address address = customerConverter.toAddressEntity(dto, customer.getId());
+        Address addressEntity = addressRepository.save(address);
+        return customerConverter.toAddressDTO(addressEntity);
+    }
+    public PhoneDTO registerPhone(String token, PhoneDTO dto){
+        String email = jwtUtil.extractTokenEmail(token.substring(7));
+        Customer customer = customerRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Email not found " + email));
+
+        Phone phone = customerConverter.toPhoneEntity(dto, customer.getId());
+        Phone phoneEntity = phoneRepository.save(phone);
+        return customerConverter.toPhoneDTO(phoneEntity);
+
     }
 }
