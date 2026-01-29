@@ -126,5 +126,23 @@ public class CustomerConverter {
                 .number(dto.getNumber() != null ? dto.getNumber() : entity.getNumber())
                 .build();
     }
+    public Address toAddressEntity(AddressDTO dto, Long customerId){
+        return Address.builder()
+                .street(dto.getStreet())
+                .city(dto.getCity())
+                .zipcode(dto.getZipcode())
+                .complement(dto.getComplement())
+                .state(dto.getState())
+                .number(dto.getNumber())
+                .customer_id(customerId)
+                .build();
+    }
+    public Phone toPhoneEntity(PhoneDTO dto, Long customerId){
+        return Phone.builder()
+                .number(dto.getNumber())
+                .ddd(dto.getDdd())
+                .customer_id(customerId)
+                .build();
+    }
 }
 
