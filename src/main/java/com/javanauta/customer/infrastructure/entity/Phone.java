@@ -11,7 +11,7 @@ import lombok.*;
 @Entity
 @Table(name = "fone")
 @Builder
-public class Fone {
+public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +20,6 @@ public class Fone {
     private String number;
     @Column(name = "ddd", length = 3)
     private String ddd;
+    @Column(name = "customer_id")
+    private Long customer_id;
 }

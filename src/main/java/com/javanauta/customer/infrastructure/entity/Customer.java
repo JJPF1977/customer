@@ -21,18 +21,18 @@ public class Customer implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nome", length = 100)
+    @Column(name = "name", length = 100)
     private String name;
     @Column(name = "email", length = 100)
     private String email;
     @Column(name = "password")
     private String password;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private List<Address> addresses;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private List<Fone> fones;
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private List<Phone> phones;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
