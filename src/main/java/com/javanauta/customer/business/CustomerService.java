@@ -123,6 +123,7 @@ public class CustomerService {
         Customer customer = customerRepository.findByEmail(email).orElseThrow(
                 () -> new ResourceNotFoundException("Email not found " + email));
 
+
         Phone phone = customerConverter.toPhoneEntity(dto, customer.getId());
         Phone phoneEntity = phoneRepository.save(phone);
         return customerConverter.toPhoneDTO(phoneEntity);
